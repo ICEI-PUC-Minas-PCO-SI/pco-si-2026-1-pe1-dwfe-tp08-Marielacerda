@@ -5,8 +5,8 @@ Nesta atividade, você fazer exercícios de programação para vai praticar a ma
 
 ## Informações Gerais
 
-- Nome:
-- Matricula:
+- Nome: Maria Eduarda Rodrigues Lacerda
+- Matricula: 899091
 
 ## Prints do console do navegador
 
