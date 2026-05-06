@@ -90,7 +90,6 @@ catalogo.forEach(item => {
 const titulosEmCaixaAlta = catalogo.map(item => item.titulo.toUpperCase()); // titulosEmCaixaAlta
 console.log("títulos em caixa alta :", titulosEmCaixaAlta);
 
-
 //Seleção com filter
 const naoAssistidos = catalogo.filter(item => item.assistido === false);
 console.log("Qtd não assistidos :", naoAssistidos.length);
@@ -106,10 +105,51 @@ if (notaAlta) {
 }
 
 //Agregação com reduce
+const somaNotas = catalogo.reduce((acc, item) => acc + item.nota, 0);
+const mediaGeral = somaNotas / catalogo.length;
+
+const assistidos = catalogo.filter(item => item.assistido);
+const somaAssistidos = assistidos.reduce((acc, item) => acc + item.nota, 0);
+const mediaAssistidos = somaAssistidos / assistidos.length;
+
+console.log("Média geral:", mediaGeral.toFixed(2));
+console.log("Média assistidos:", mediaAssistidos.toFixed(2));
+
 
 
 //Checagens com some e every
+const existeAntigo = catalogo.some(item => item.ano < 2000);
+const todosTemGenero = catalogo.every(item => item.generos.length > 0);
+
+console.log("Existe item antes de 2000?", existeAntigo);
+console.log("Todos possuem gênero?", todosTemGenero);
+
 
 //Saída na tela (DOM simples)
+const output = document.getElementById("output"); //total itens
+//qtd filmes e series
+const filmes = catalogo.filter(item => item.tipo === "filme").length;
+const series = catalogo.filter(item => item.tipo === "serie").length;
 
+//Um mini ranking com os 3 maiores
+const ranking = [...catalogo]
+    .sort((a, b) => b.nota - a.nota)
+    .slice(0, 3);
+
+let rankingHTML = "";
+ranking.forEach(item => {
+    rankingHTML += `<li>${item.titulo} - ${item.nota}</li>`;
+});
+
+
+output.innerHTML = `
+    <h2> - Resumo do catálogo</h2>
+    <p>Total de itens: ${catalogo.length} </p>
+    <p>Filmes: ${filmes}</p>
+    <p>Séries: ${series}</p>
+    <p>Quantidade de não assistidos: ${naoAssistidos.length}</p>
+    <p>Média geral de notas: ${mediaGeral.toFixed(2)}</p>
+    <h3>Top 3 melhores notas</h3>
+    <ol>${rankingHTML}</ol>
+`;
 //
